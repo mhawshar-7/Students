@@ -1,0 +1,40 @@
+﻿@using CoreData.Entities
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model List<Student>
+
+<div class="row">
+    <div class="col">
+        <h1>List Of Student</h1>
+    </div>
+    <div class="col text-end">
+        <a class="btn btn-primary" asp-controller="Student" asp-action="EditStudent">Create</a>
+    </div>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Modified</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var s in Model)
+        {
+            <tr>
+                <td>@s.Name</td>
+                <td>@s.ModifiedDate.ToString("dd/MM/yyyy")</td>
+                <td class="text-end">
+                    <a class="btn btn-primary" asp-controller="Student" asp-action="EditStudent" asp-route-id="@s.Id">Edit</a>
+                    <button class="btn btn-secondary">Delete</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
