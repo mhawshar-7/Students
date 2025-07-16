@@ -8,10 +8,12 @@ namespace Students.Controllers
     public class StudentController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IStudentRepository _studentRepository;
 
-        public StudentController(IUnitOfWork unitOfWork)
+        public StudentController(IUnitOfWork unitOfWork, IStudentRepository studentRepository)
         {
             _unitOfWork = unitOfWork;
+            _studentRepository = studentRepository;
         }
         [HttpGet]
         public async Task<IActionResult> EditStudent(int id)
@@ -21,18 +23,22 @@ namespace Students.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditStudent(StudentModel model)
+        public async Task<IActionResult> EditStudent(Student model)
         {
             Student student;
             if (model.Id == 0) 
             {
-                student = new Student(model.Name);
+                student = new Student(model.Name, model.Age, model.Major, model.GPA, model.ContactInfo);
                 _unitOfWork.Repository<Student>().Create(student);
             }
             else
             {
                 student = await _unitOfWork.Repository<Student>().GetByIdAsync(model.Id);
                 student.Name = model.Name;
+                student.Age = model.Age;
+                student.Major = model.Major;
+                student.GPA = model.GPA;
+                student.ContactInfo = model.ContactInfo;
                 _unitOfWork.Repository<Student>().Update(student);
             }
             await _unitOfWork.Complete();
@@ -42,7 +48,8 @@ namespace Students.Controllers
         [HttpGet]
         public async Task<IActionResult> StudentList()
         {
-            var list = await _unitOfWork.Repository<Student>().ListAllAsync();
+            //var list = await _unitOfWork.Repository<Student>().ListAllAsync();
+            var list = await _studentRepository.GetStudentsAsync();
             return View(list);
         }
     }

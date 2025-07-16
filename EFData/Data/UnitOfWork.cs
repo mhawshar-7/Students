@@ -22,11 +22,6 @@ namespace Infrastructure.Data
 			return await _context.SaveChangesAsync();
 		}
 
-		public void Dispose()
-		{
-			_context.Dispose();
-		}
-
 		public IGenericRepository<TEntity> Repository<TEntity>() where TEntity : BaseEntity
 		{
 			if (_repositories == null) _repositories = new Hashtable();

@@ -2,7 +2,7 @@
 
 namespace CoreData.Interfaces
 {
-	public interface IUnitOfWork: IDisposable
+	public interface IUnitOfWork
 	{
 		IGenericRepository<TEntity> Repository<TEntity>() where TEntity: BaseEntity;
 		Task<int> Complete();
