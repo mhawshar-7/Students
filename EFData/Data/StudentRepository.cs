@@ -9,6 +9,10 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Data
 {
+	/// <summary>
+	/// Student Repository for more specialize
+	/// But now we used Generic Repos instead.
+	/// </summary>
 	public class StudentRepository : IStudentRepository
 	{
 		private readonly StoreContext _context;

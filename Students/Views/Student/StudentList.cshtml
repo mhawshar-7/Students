@@ -19,8 +19,11 @@
     <thead>
         <tr>
             <th>Name</th>
+            <th>Age</th>
+            <th>Major</th>
+            <th>GPA</th>
+            <th>ContactInfo</th>
             <th>Modified</th>
-            <th></th>
             <th></th>
         </tr>
     </thead>
@@ -29,10 +32,16 @@
         {
             <tr>
                 <td>@s.Name</td>
+                <td>@s.Age</td>
+                <td>@s.Major</td>
+                <td>@s.GPA</td>
+                <td>@s.ContactInfo</td>
                 <td>@s.ModifiedDate.ToString("dd/MM/yyyy")</td>
                 <td class="text-end">
+                    <form method="post" asp-action="RemoveStudent" id="@s.Id">
                     <a class="btn btn-primary" asp-controller="Student" asp-action="EditStudent" asp-route-id="@s.Id">Edit</a>
-                    <button class="btn btn-secondary">Delete</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
                 </td>
             </tr>
         }

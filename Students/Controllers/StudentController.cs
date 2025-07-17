@@ -1,19 +1,16 @@
 ﻿using CoreData.Entities;
 using CoreData.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Students.Models;
 
 namespace Students.Controllers
 {
     public class StudentController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IStudentRepository _studentRepository;
 
-        public StudentController(IUnitOfWork unitOfWork, IStudentRepository studentRepository)
+        public StudentController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _studentRepository = studentRepository;
         }
         [HttpGet]
         public async Task<IActionResult> EditStudent(int id)
@@ -48,9 +45,19 @@ namespace Students.Controllers
         [HttpGet]
         public async Task<IActionResult> StudentList()
         {
-            //var list = await _unitOfWork.Repository<Student>().ListAllAsync();
-            var list = await _studentRepository.GetStudentsAsync();
+            //var list = await _studentRepository.GetStudentsAsync();
+            var list = await _unitOfWork.Repository<Student>().ListAllAsync();
             return View(list);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> RemoveStudent(int id)
+        {
+            var student = await _unitOfWork.Repository<Student>().GetByIdAsync(id);
+            _unitOfWork.Repository<Student>().Delete(student);
+
+            await _unitOfWork.Complete();
+            return RedirectToAction("StudentList", "Student");
         }
     }
 }

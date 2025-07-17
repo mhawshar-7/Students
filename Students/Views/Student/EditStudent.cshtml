@@ -6,22 +6,42 @@
 @model CoreData.Entities.Student
 
 <div class="row">
-   <div class="col">
-       Student
-   </div>
+    <div class="col">
+        <h1>Edit Student</h1>
+    </div>
 </div>
 
 <form method="post">
-<div class="row">
-    <div class="col text-end">
-        <button type="submit" class="btn btn-primary">Save</button>
-        <button type="submit" class="btn btn-warning">Cancel</button>
+    <div class="row">
+        <div class="col text-end">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <a class="btn btn-warning" asp-controller="Student" asp-action="StudentList">Cancel</a>
+        </div>
     </div>
-</div>
-<div class="row">
-    <label class="col-form-label">Name</label>
-    <div class="col">
-        <input type="text" class="form-control" asp-for="Name" />
+    <div class="row">
+        <label class="col-form-label">Name</label>
+        <div class="col">
+            <input type="text" class="form-control" asp-for="Name" />
+        </div>
+        <label class="col-form-label">Age</label>
+        <div class="col">
+            <input type="number" class="form-control" asp-for="Age" />
+        </div>
     </div>
-</div>
+    <div class="row">
+        <label class="col-form-label">Major</label>
+        <div class="col">
+            <input type="text" class="form-control" asp-for="Major" />
+        </div>
+        <label class="col-form-label">GPA</label>
+        <div class="col">
+            <input type="number" step="0.01" class="form-control" asp-for="GPA" />
+        </div>
+    </div>
+    <div class="row">
+        <label class="col-form-label">Contact Info</label>
+        <div class="col">
+            <input type="text" class="form-control" asp-for="ContactInfo" />
+        </div>
+    </div>
 </form>
