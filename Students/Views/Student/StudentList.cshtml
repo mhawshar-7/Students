@@ -5,7 +5,7 @@
 @{
 }
 
-@model List<Student>
+@model List<StudentModel>
 
 <div class="row">
     <div class="col">
@@ -36,7 +36,7 @@
                 <td>@s.Major</td>
                 <td>@s.GPA</td>
                 <td>@s.ContactInfo</td>
-                <td>@s.ModifiedDate.ToString("dd/MM/yyyy")</td>
+                <td>@s.ModifiedDate</td>
                 <td class="text-end">
                     <form method="post" asp-controller="Student" asp-action="RemoveStudent" asp-route-id="@s.Id">
                     <a class="btn btn-primary" asp-controller="Student" asp-action="EditStudent" asp-route-id="@s.Id">Edit</a>

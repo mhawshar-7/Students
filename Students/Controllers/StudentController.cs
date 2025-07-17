@@ -1,6 +1,7 @@
 ﻿using CoreData.Entities;
 using CoreData.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Students.Models;
 
 namespace Students.Controllers
 {
@@ -16,14 +17,27 @@ namespace Students.Controllers
         public async Task<IActionResult> EditStudent(int id)
         {
             var data = await _unitOfWork.Repository<Student>().GetByIdAsync(id);
-            return View(data);
+            StudentModel? model = null;
+            if (data is not null)
+            {
+                model = new StudentModel
+                {
+                    Id = data.Id,
+                    Name = data.Name,
+                    Age = data.Age,
+                    Major = data.Major,
+                    GPA = data.GPA,
+                    ContactInfo = data.ContactInfo
+                };
+            }
+            return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditStudent(Student model)
+        public async Task<IActionResult> EditStudent(StudentModel model)
         {
             Student student;
-            if (model.Id == 0) 
+            if (model.Id == 0)
             {
                 student = new Student(model.Name, model.Age, model.Major, model.GPA, model.ContactInfo);
                 _unitOfWork.Repository<Student>().Create(student);
@@ -47,7 +61,17 @@ namespace Students.Controllers
         {
             //var list = await _studentRepository.GetStudentsAsync();
             var list = await _unitOfWork.Repository<Student>().ListAllAsync();
-            return View(list);
+            var model = list.Select(s => new StudentModel
+            {
+                Id = s.Id,
+                Name = s.Name,
+                Age = s.Age,
+                Major = s.Major,
+                GPA = s.GPA,
+                ContactInfo = s.ContactInfo,
+                ModifiedDate = s.ModifiedDate.ToString("dd/MM/yyyy")
+            }).ToList();
+            return View(model);
         }
 
         [HttpPost]
