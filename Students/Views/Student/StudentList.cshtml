@@ -38,9 +38,9 @@
                 <td>@s.ContactInfo</td>
                 <td>@s.ModifiedDate.ToString("dd/MM/yyyy")</td>
                 <td class="text-end">
-                    <form method="post" asp-action="RemoveStudent" id="@s.Id">
+                    <form method="post" asp-controller="Student" asp-action="RemoveStudent" asp-route-id="@s.Id">
                     <a class="btn btn-primary" asp-controller="Student" asp-action="EditStudent" asp-route-id="@s.Id">Edit</a>
-                    <button type="submit" class="btn btn-danger">Delete</button>
+                        <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
                 </td>
             </tr>

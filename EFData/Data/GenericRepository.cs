@@ -31,7 +31,7 @@ namespace Infrastructure.Data
 
 		public async Task<IReadOnlyList<T>> ListAllAsync()
 		{
-			return await _context.Set<T>().ToListAsync();
+			return await _context.Set<T>().Where(x => !x.IsDeleted).ToListAsync();
 		}
 
 		public void Update(T entity)
