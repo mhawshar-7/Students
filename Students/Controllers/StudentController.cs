@@ -36,6 +36,7 @@ namespace Students.Controllers
         [HttpPost]
         public async Task<IActionResult> EditStudent(StudentModel model)
         {
+            // we can create services to handle validation and business logic
             Student student;
             if (model.Id == 0)
             {
